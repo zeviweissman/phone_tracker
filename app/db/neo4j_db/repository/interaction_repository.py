@@ -52,3 +52,11 @@ def get_devices_with_strong_signal():
             RETURN [d1, d2]
             """
     return data_query(query=query)
+
+
+def get_interaction_count_by_id(id: str):
+    query = """
+        MATCH  devices = (:Device{id:"4242ec8c-b339-4cc4-acac-e2890238bedb"})-[:CALLED]->(:Device)
+        RETURN count(devices)
+            """
+    return data_query(query=query)

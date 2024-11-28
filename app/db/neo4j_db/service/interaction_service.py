@@ -26,3 +26,7 @@ def get_bluetooth_path():
 
 def get_devices_with_strong_signal():
     return interaction_repos.get_devices_with_strong_signal()
+
+
+def get_interaction_count_by_id(id: str):
+    return interaction_repos.get_interaction_count_by_id(id)

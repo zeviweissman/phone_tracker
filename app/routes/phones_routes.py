@@ -17,5 +17,10 @@ def get_bluetooth_path():
 
 @phones_blueprint.route("/strong_signal", methods=['GET'])
 def get_devices_with_strong_signal():
-    path = interaction_service.get_devices_with_strong_signal()
-    return jsonify(path), 200
+    devices = interaction_service.get_devices_with_strong_signal()
+    return jsonify(devices), 200
+
+@phones_blueprint.route("/interaction_count/<device_id>")
+def get_interaction_count_by_id(device_id: str):
+    count = interaction_service.get_interaction_count_by_id(device_id)
+    return jsonify(count), 200
