@@ -1,5 +1,5 @@
 from dataclasses import asdict
-from app.db.neo4j_db.crud import merge
+from app.db.neo4j_db.crud import merge, data_query
 from app.db.neo4j_db.models import Interaction
 import app.utils.convert_utils as convert_utils
 from returns.maybe import Maybe
@@ -29,3 +29,11 @@ def create_interaction(interaction: Interaction):
     )
     return (Maybe.from_optional(res.get("rel"))
             .map(lambda rel: dict(rel)))
+
+
+def get_bluetooth_path():
+    query = """
+            match path = (:Device) -[:CALLED*{method:"Bluetooth"}] -> (:Device)
+            return length(path), path
+            """
+    return data_query(query=query)

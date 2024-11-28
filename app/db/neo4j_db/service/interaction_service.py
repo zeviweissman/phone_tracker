@@ -18,3 +18,7 @@ def register_interaction_between_devices(interaction):
     if not device_repos.get_one_device(parsed_interaction.device_2):
         merge_device_with_location(parsed_interaction.device_2)
     interaction_repos.create_interaction(parsed_interaction)
+
+
+def get_bluetooth_path():
+    return interaction_repos.get_bluetooth_path()
