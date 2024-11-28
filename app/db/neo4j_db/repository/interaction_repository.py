@@ -61,3 +61,12 @@ def get_interaction_count_by_id(id: str):
             """
     params = {"id": id}
     return data_query(query=query, params=params)
+
+
+def check_if_two_devices_have_interaction(id1: str, id2: str):
+    query = """
+            MATCH (n1:Device {id: $id1}), (n2:Device {id: $id2})
+            RETURN EXISTS((n1)-[:CALLED]-(n2))  as have_connection
+                """
+    params = {"id1": id1, "id2": id2}
+    return data_query(query=query, params=params)

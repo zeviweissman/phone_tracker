@@ -30,3 +30,7 @@ def get_devices_with_strong_signal():
 
 def get_interaction_count_by_id(id: str):
     return interaction_repos.get_interaction_count_by_id(id)
+
+
+def check_if_two_devices_have_interaction(id1: str, id2: str):
+    return interaction_repos.check_if_two_devices_have_interaction(id1, id2)

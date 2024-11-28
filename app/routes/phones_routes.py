@@ -24,3 +24,9 @@ def get_devices_with_strong_signal():
 def get_interaction_count_by_id(device_id: str):
     count = interaction_service.get_interaction_count_by_id(device_id)
     return jsonify(count), 200
+
+
+@phones_blueprint.route("/have_connection/<device_id1>/<device_id2>")
+def check_if_two_devices_have_interaction(device_id1: str, device_id2: str):
+    have_connection = interaction_service.check_if_two_devices_have_interaction(device_id1, device_id2)
+    return jsonify(have_connection or {"have connection": False}), 200
