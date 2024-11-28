@@ -33,7 +33,22 @@ def create_interaction(interaction: Interaction):
 
 def get_bluetooth_path():
     query = """
-            match path = (:Device) -[:CALLED*{method:"Bluetooth"}] -> (:Device)
-            return length(path), path
+            MATCH (start:Device)
+            MATCH (end:Device)
+            WHERE start <> end
+            MATCH path = shortestPath((start)-[:CALLED*]->(end))
+            WHERE ALL(r IN relationships(path) WHERE r.method = 'Bluetooth')
+            WITH path, length(path) as pathLength
+            ORDER BY pathLength DESC
+            RETURN length(path), path
+            """
+    return data_query(query=query)
+
+
+def get_devices_with_strong_signal():
+    query = """
+            MATCH  (d1:Device)-[rel:CALLED]->(d2:Device)
+            WHERE rel.signal_strength_dbm > -60
+            RETURN [d1, d2]
             """
     return data_query(query=query)

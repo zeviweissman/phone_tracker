@@ -13,3 +13,9 @@ def receive_interactions():
 def get_bluetooth_path():
     path = interaction_service.get_bluetooth_path()
     return jsonify(path), 200
+
+
+@phones_blueprint.route("/strong_signal", methods=['GET'])
+def get_devices_with_strong_signal():
+    path = interaction_service.get_devices_with_strong_signal()
+    return jsonify(path), 200

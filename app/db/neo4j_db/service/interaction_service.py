@@ -22,3 +22,7 @@ def register_interaction_between_devices(interaction):
 
 def get_bluetooth_path():
     return interaction_repos.get_bluetooth_path()
+
+
+def get_devices_with_strong_signal():
+    return interaction_repos.get_devices_with_strong_signal()
