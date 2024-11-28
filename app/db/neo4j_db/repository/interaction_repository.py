@@ -1,5 +1,5 @@
 from dataclasses import asdict
-from app.db.neo4j_db.crud import merge, data_query
+from app.db.neo4j_db.crud import merge, data_query, single_query
 from app.db.neo4j_db.models import Interaction
 import app.utils.convert_utils as convert_utils
 from returns.maybe import Maybe
@@ -70,3 +70,15 @@ def check_if_two_devices_have_interaction(id1: str, id2: str):
                 """
     params = {"id1": id1, "id2": id2}
     return data_query(query=query, params=params)
+
+
+def get_latest_interaction_by_id(id: str):
+    query = """
+            MATCH (:Device{id: $id}) -[rel:CALLED]- (:Device) 
+            return rel
+            order by rel.timestamp desc
+            limit 1
+            """
+    params = {"id": id}
+    return single_query(query=query, params=params).get("rel")
+
